@@ -1,0 +1,29 @@
+{
+	"geode": "4.2.0",
+	"gd": {
+		"win": "2.2074",
+		"andoid": "2.207"
+	},
+	"version": "v1.0.0",
+	"id": "cj_link.quickplay",
+	"name": "QuickPlay",
+	"developer": "CJ_Link",
+	"description": "Adds a button to the menu screen and creator screen that instantly opens whatever level you set it to",
+	"tags": [
+		"utility"
+	],
+	"settings": {
+		"levelID1": {
+			"name": "Level ID",
+			"description": "ID of the level being saved",
+			"type": "int",
+			"default": 73667628
+		},
+		"levelID2": {
+			"name": "Secondary Level ID",
+			"description": "ID of a second level being saved, often used for startpos copies",
+			"type": "int",
+			"default": 83724866
+		}
+	}
+}
