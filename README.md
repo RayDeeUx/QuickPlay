@@ -1,3 +1,3 @@
 # QuickPlay
 
-This is where she makes a mod.
+this mod does many cool things
