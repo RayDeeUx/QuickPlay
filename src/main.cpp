@@ -51,9 +51,9 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 	void openLevel(GJGameLevel* level, const int64_t levelID) {
 		if (!level) return MyMenuLayer::woahThereBuddy(fmt::format("Unable to open level {}. Try downloading it first, then try again. Or check your internet connection.", levelID));
+		if (Mod::get()->getSettingValue<bool>("play-sfx")) FMODAudioEngine::get()->playEffect("playSound_01.ogg");
 		auto playScene = PlayLayer::scene(level, false, false);
 		auto transition = CCTransitionFade::create(0.5f, playScene);
-		if (Mod::get()->getSettingValue<bool>("play-sfx")) FMODAudioEngine::get()->playEffect("playSound_01.ogg");
 		CCDirector::sharedDirector()->pushScene(transition);
 	}
 
