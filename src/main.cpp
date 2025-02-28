@@ -49,6 +49,10 @@ class $modify(MyMenuLayer, MenuLayer) {
 		GJGameLevel* level = glm->getSavedLevel(levelID);
 		if (!level) return MyMenuLayer::woahThereBuddy(fmt::format("Unable to open level {}. Try again later.", levelID));
 		auto playScene = PlayLayer::scene(level, false, false);
+		if (utils::string::toLower(typeinfo_cast<CCLabelBMFont*>(playScene->getChildByID("debug-text"))->getString()) == "load failed!") {
+			playScene->release(); // abort mission
+			return MyMenuLayer::woahThereBuddy(fmt::format("Unable to play level {}. Try again later.", levelID));
+		}
 		auto transition = CCTransitionFade::create(0.5f, playScene);
 		CCDirector::sharedDirector()->pushScene(transition);
 	}
