@@ -80,7 +80,7 @@ class $modify(MyInfoLayer, LevelInfoLayer) {
 		int64_t levelID = this->m_level->m_levelID;
 		geode::createQuickPopup(
 			"Save Level",
-			"Save this level as primary or secondary menu screen level?\n\n<cy>To cancel, press ESC (PC/Mac) or the Back button (Android).</c>",
+			"Save this level as primary or secondary menu screen level?\n\n<cy>To cancel, press ESC (PC/Mac) or the Back button on your three-button navigation bar (Android).</c>",
 			"Primary", "Secondary",
 			[levelID](auto, bool secondary) {
 				if (secondary) Mod::get()->setSettingValue("levelID2", levelID);
