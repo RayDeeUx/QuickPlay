@@ -44,8 +44,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 	void openLevel(const int64_t levelID) {
 		if (levelID < 128) return MyMenuLayer::woahThereBuddy(fmt::format("{} is not a valid level ID.", levelID)); // reject lists and robtop levels
 		GameLevelManager* glm = GameLevelManager::sharedState();
-		glm->downloadLevel(levelID, false);
-		if (!glm->hasDownloadedLevel(levelID)) return MyMenuLayer::woahThereBuddy(fmt::format("Unable to download level {}. Try again later.", levelID));
+		if (!glm->hasDownloadedLevel(levelID)) glm->downloadLevel(levelID, false);
 		GJGameLevel* level = glm->getSavedLevel(levelID);
 		if (!level) return MyMenuLayer::woahThereBuddy(fmt::format("Unable to open level {}. Try again later.", levelID));
 		auto playScene = PlayLayer::scene(level, false, false);
