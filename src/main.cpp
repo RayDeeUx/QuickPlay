@@ -6,8 +6,11 @@ using namespace geode::prelude;
 class $modify(MyMenuLayer, MenuLayer) {
 
 	bool init() {
-
 		if (!MenuLayer::init()) return false;
+		
+		GameLevelManager* glm = GameLevelManager::sharedState();
+		glm->downloadLevel(Mod::get()->getSavedValue<int64_t>("levelID1", 73667628), false);
+		glm->downloadLevel(Mod::get()->getSavedValue<int64_t>("levelID2", 83724866), false);
 		
 		auto menu = this->getChildByID("right-side-menu");
 		if (!menu) return true;
@@ -43,16 +46,11 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 	void openLevelStepOne(const int64_t levelID) {
 		if (levelID < 128) return MyMenuLayer::woahThereBuddy(fmt::format("{} is not a valid level ID.", levelID)); // reject lists and robtop levels
-		GameLevelManager* glm = GameLevelManager::sharedState();
-		if (!glm->hasDownloadedLevel(levelID)) {
-			glm->downloadLevel(levelID, false);
-			return MyMenuLayer::woahThereBuddy(fmt::format("Currently downloading level {} right now...\nTry again in a bit.", levelID), "Hang tight...");
-		} else MyMenuLayer::openLevelStepTwo(levelID, glm);
+		MyMenuLayer::openLevel(level);
 	}
 
-	void openLevelStepTwo(const int64_t levelID, GameLevelManager* glm) {
-		GJGameLevel* level = glm->getSavedLevel(levelID);
-		if (!level) return MyMenuLayer::woahThereBuddy(fmt::format("Unable to open level {}. Try again later.", levelID));
+	void openLevel(GJGameLevel* level) {
+		if (!level) return MyMenuLayer::woahThereBuddy(fmt::format("Unable to open level {}. Try downloading it first, then try again. Or check your internet connection.", levelID));
 		auto playScene = PlayLayer::scene(level, false, false);
 		auto transition = CCTransitionFade::create(0.5f, playScene);
 		CCDirector::sharedDirector()->pushScene(transition);
