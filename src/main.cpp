@@ -34,18 +34,23 @@ class $modify(MyMenuLayer, MenuLayer) {
 	}
 
 	void onLevelButton(CCObject*) {
-		MyMenuLayer::openLevel(Mod::get()->getSavedValue<int64_t>("levelID1", 73667628));
+		MyMenuLayer::openLevelStepOne(Mod::get()->getSavedValue<int64_t>("levelID1", 73667628));
 	}
 
 	void onLevelButton2(CCObject*) {
-		MyMenuLayer::openLevel(Mod::get()->getSavedValue<int64_t>("levelID2", 83724866));
+		MyMenuLayer::openLevelStepOne(Mod::get()->getSavedValue<int64_t>("levelID2", 83724866));
 	}
 
-	void openLevel(const int64_t levelID) {
+	void openLevelStepOne(const int64_t levelID) {
 		if (levelID < 128) return MyMenuLayer::woahThereBuddy(fmt::format("{} is not a valid level ID.", levelID)); // reject lists and robtop levels
 		GameLevelManager* glm = GameLevelManager::sharedState();
-		glm->downloadLevel(levelID, false);
-		if (!glm->hasDownloadedLevel(levelID)) return MyMenuLayer::woahThereBuddy(fmt::format("Unable to download level {}. Try again later.", levelID));
+		if (!glm->hasDownloadedLevel(levelID)) {
+			glm->downloadLevel(levelID, false);
+			return MyMenuLayer::woahThereBuddy(fmt::format("Unable to download level {}. Try again later.", levelID));
+		} else MyMenuLayer::openLevel(levelID);
+	}
+
+	void openLevelStepTwo(const int64_t levelID) {
 		GJGameLevel* level = glm->getSavedLevel(levelID);
 		if (!level) return MyMenuLayer::woahThereBuddy(fmt::format("Unable to open level {}. Try again later.", levelID));
 		auto playScene = PlayLayer::scene(level, false, false);
