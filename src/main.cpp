@@ -46,7 +46,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		GameLevelManager* glm = GameLevelManager::sharedState();
 		if (!glm->hasDownloadedLevel(levelID)) {
 			glm->downloadLevel(levelID, false);
-			return MyMenuLayer::woahThereBuddy(fmt::format("Unable to download level {}. Try again later.", levelID));
+			return MyMenuLayer::woahThereBuddy(fmt::format("Currently downloading level {} right now...\nTry again in a bit.", levelID), "Hang tight...");
 		} else MyMenuLayer::openLevel(levelID);
 	}
 
@@ -58,8 +58,8 @@ class $modify(MyMenuLayer, MenuLayer) {
 		CCDirector::sharedDirector()->pushScene(transition);
 	}
 
-	void woahThereBuddy(const std::string& reason) {
-		return FLAlertLayer::create("Uh oh!", reason, "OK")->show();
+	void woahThereBuddy(const std::string& reason, const std::string& title = "Uh oh!") {
+		return FLAlertLayer::create(title.c_str(), reason, "OK")->show();
 	}
 };
 
