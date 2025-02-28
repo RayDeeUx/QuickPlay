@@ -14,15 +14,10 @@
 		"utility"
 	],
 	"settings": {
-		"levelID1": {
-			"name": "Primary Shortcut Level ID",
-			"type": "int",
-			"default": 73667628
-		},
-		"levelID2": {
-			"name": "Secondary Shortcut Level ID",
-			"type": "int",
-			"default": 83724866
+		"play-sfx": {
+			"name": "Play SFX",
+			"type": "bool",
+			"default": true
 		}
 	},
 	"dependencies": {
