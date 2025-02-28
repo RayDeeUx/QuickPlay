@@ -46,7 +46,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 
 	void openLevelStepOne(const int64_t levelID) {
 		if (levelID < 128) return MyMenuLayer::woahThereBuddy(fmt::format("{} is not a valid level ID.", levelID)); // reject lists and robtop levels
-		MyMenuLayer::openLevel(level, levelID);
+		MyMenuLayer::openLevel(GameLevelManager::sharedState()->getSavedLevel(levelID), levelID);
 	}
 
 	void openLevel(GJGameLevel* level, const int64_t levelID) {
