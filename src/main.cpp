@@ -47,11 +47,11 @@ class $modify(MyMenuLayer, MenuLayer) {
 		if (!glm->hasDownloadedLevel(levelID)) {
 			glm->downloadLevel(levelID, false);
 			return MyMenuLayer::woahThereBuddy(fmt::format("Currently downloading level {} right now...\nTry again in a bit.", levelID), "Hang tight...");
-		} else MyMenuLayer::openLevel(levelID);
+		} else MyMenuLayer::openLevel(levelID, glm);
 	}
 
-	void openLevelStepTwo(const int64_t levelID) {
-		GJGameLevel* level = GameLevelManager::sharedState()->getSavedLevel(levelID);
+	void openLevelStepTwo(const int64_t levelID, GameLevelManager* glm) {
+		GJGameLevel* level = glm->getSavedLevel(levelID);
 		if (!level) return MyMenuLayer::woahThereBuddy(fmt::format("Unable to open level {}. Try again later.", levelID));
 		auto playScene = PlayLayer::scene(level, false, false);
 		auto transition = CCTransitionFade::create(0.5f, playScene);
