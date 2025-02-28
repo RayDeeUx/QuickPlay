@@ -51,7 +51,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 	}
 
 	void openLevelStepTwo(const int64_t levelID) {
-		GJGameLevel* level = glm->getSavedLevel(levelID);
+		GJGameLevel* level = GameLevelManager::sharedState()->getSavedLevel(levelID);
 		if (!level) return MyMenuLayer::woahThereBuddy(fmt::format("Unable to open level {}. Try again later.", levelID));
 		auto playScene = PlayLayer::scene(level, false, false);
 		auto transition = CCTransitionFade::create(0.5f, playScene);
