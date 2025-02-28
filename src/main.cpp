@@ -47,7 +47,7 @@ class $modify(MyMenuLayer, MenuLayer) {
 		if (!glm->hasDownloadedLevel(levelID)) {
 			glm->downloadLevel(levelID, false);
 			return MyMenuLayer::woahThereBuddy(fmt::format("Currently downloading level {} right now...\nTry again in a bit.", levelID), "Hang tight...");
-		} else MyMenuLayer::openLevel(levelID, glm);
+		} else MyMenuLayer::openLevelStepTwo(levelID, glm);
 	}
 
 	void openLevelStepTwo(const int64_t levelID, GameLevelManager* glm) {
